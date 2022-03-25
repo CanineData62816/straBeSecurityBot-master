@@ -54,7 +54,7 @@ module.exports = {
                     const prettyWarnings =
                         warnings[target.id].length > 0 ?
                             warnings[target.id].map((warning, index) => 
-                                `${index+1}: Warning from <@${warning.staff}> on ` +
+                                `${index+1}: ${warning.type} from <@${warning.staff}> on ` +
                                 `${warning.timestamp}\nReason: ${warning.reason}`
                             )
                         : ['This Person has no warnings']

@@ -29,6 +29,14 @@ module.exports = {
             .setTimestamp()
             .setFooter(message.author.tag)
             message.channel.send({embeds:[ embed ]})
+            if(!warnings[target.id]) warnings[target.id] = [];
+            warnings[target.id].push({
+                'staff': message.author.id,
+                'reason': args[2],
+                'timestamp': new Date().toLocaleString(),
+                'type': 'timeout'
+            });
+            fs.writeFileSync('./warnings.json', JSON.stringify(warnings, null, 4))
         } catch(err) {
             console.warn(err)
             message.reply(`An error has occured, please don't try to rerun the command for multiple minutes.\nIf this issue persists please conatact a developer\nError: ${err}`)
