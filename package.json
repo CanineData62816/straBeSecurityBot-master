@@ -17,6 +17,7 @@
     "discord-api-types": "^0.29.0",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
+    "exceljs": "^4.3.0",
     "fs": "^0.0.1-security"
   }
 }

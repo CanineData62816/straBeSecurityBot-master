@@ -2,13 +2,14 @@ require('dotenv').config()
 const { TYPING_START, MessageEmbed, Guild } = require('discord.js')
 
 module.exports = (Discord, client, message) => {
+    
     try {const prefix = process.env.PREFIX
     if(!message.content.startsWith(prefix) || message.author.bot) return
 
     const args = message.content.slice(prefix.length).split(/ +/)
     const cmd = args.shift().toLowerCase()
-
     const command = client.commands.get(cmd) || client.commands.find((a) => a.alisases && a.alisases.includes(cmd))
+    if (!command) return message.reply('Command not found')
 
     //const validPermissions = [
     //    "CREATE_INSTANT_INVITE",
@@ -60,7 +61,7 @@ module.exports = (Discord, client, message) => {
     //    }
     //}
 
-    
+    message.channel.sendTyping()
     if(command) command.execute(client, message, cmd, args, Discord)
     console.log(`Ran command ${command.name}`)
 }

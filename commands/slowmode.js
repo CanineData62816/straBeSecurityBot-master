@@ -17,6 +17,5 @@ module.exports = {
         .setTimestamp()
         .setDescription(`Set the slowmode to ${number}`)
         message.reply( {embeds:[ Embed ]})
-        console.log('Ran command "slowmode"')
     }
 }

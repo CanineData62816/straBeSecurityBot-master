@@ -15,8 +15,12 @@ module.exports = {
             await message.channel.fetch({limit:args[0]}).then(messages =>{
             message.channel.bulkDelete(number+1);
         })
-        const msg = await message.channel.send(`${number} Nachrichten wurden gelöscht`)
-        setTimeout(() =>{msg.delete(), 25000000000})
+        const msg = await message.channel.send(`Deleted ${number} messages`)
+        //Make a function that waits 5 seconds and then deletes the message
+        setTimeout(function(){
+            msg.delete();
+        }, 5000);
+        //setTimeout(() =>{msg.delete(), 25000000000})
     }
 }
 
