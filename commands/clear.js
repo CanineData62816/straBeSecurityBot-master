@@ -5,8 +5,9 @@ const client = new Discord.Client({ intents: [allIntents] });
 module.exports = {
     name: 'clear',
     aliases: ['purge'],
-    permissions: ["EXAMPLE"],
-    description: '',
+    permissions: ["Permissions.FLAGS.MANAGE_MESSAGES"],
+    description: 'Clears a specified amount of messages from a channel',
+    usage: 'clear [amount]',
     async execute(client, message, cmd, args, Discord){
         if (!args[0]) return message.reply('Keine Zahl wurde angegeben')
         if (isNaN(args[0] )) return message.reply('Angegebene Wert ist keine natürliche Zahl zwischen 1 und 99')

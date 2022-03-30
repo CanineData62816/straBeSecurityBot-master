@@ -5,8 +5,9 @@ const allIntents = new Discord.Intents(32767);
 module.exports = {
     name: 'slowmode',
     aliases: ['sm', 'slowm', 'smode'],
-    permissions: ["MANAGE_MESSAGES"],
+    permissions: ["Permissions.FLAGS.MANAGE_MESSAGES"],
     description: 'Changes the slowmode of the current channel',
+    usage: 'slowmode [time]',
     execute(client, message, cmd, args, Discord){
         let channel = message.channel
         message.channel.sendTyping()

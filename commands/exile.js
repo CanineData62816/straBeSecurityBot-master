@@ -4,9 +4,10 @@ const allIntents = new Discord.Intents(32767);
 
 module.exports = {
     name: 'exile',
-    aliases: ['alias'],
-    permissions: ["EXAMPLE"],
-    description: '',
+    aliases: ['ban'],
+    permissions: ["Permissions.FLAGS.BAN_MEMBERS"],
+    description: 'Exiles a member from the current guild',
+    usage: 'exile [member] <reason>',
     async execute(client, message, cmd, args, Discord){
         try {
         //let user = await message.guild.members.search(args[0])

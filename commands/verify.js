@@ -5,8 +5,9 @@ const client = new Discord.Client({ intents: [allIntents] });
 module.exports = {
     name: 'verify',
     aliases: ['alias'],
-    permissions: ["EXAMPLE"],
-    description: '',
+    permissions: ["Permissions.FLAGS.SEND_MESSAGES"],
+    description: 'The command that verifies the user',
+    usage: 'verify',
     execute(client, message, cmd, args, Discord){
         var Excel = require('exceljs');
         const fs = require('fs');

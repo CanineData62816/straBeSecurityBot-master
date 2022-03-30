@@ -6,8 +6,9 @@ const client = new Discord.Client({ intents: [allIntents] });
 module.exports = {
     name: 'gban',
     aliases: ['globalban'],
-    permissions: ["EXAMPLE"],
-    description: 'Global Bans the User from all servers their in',
+    permissions: ["Permissions.FLAGS.BAN_MEMBERS"],
+    description: 'Global Bans the User from all servers they and the bot are in',
+    usage: 'gban [member] <reason>',
     async execute(client, message, cmd, args, Discord){
         try {
             //let user = await message.guild.members.search(args[0])

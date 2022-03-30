@@ -8,58 +8,43 @@ module.exports = (Discord, client, message) => {
 
     const args = message.content.slice(prefix.length).split(/ +/)
     const cmd = args.shift().toLowerCase()
-    const command = client.commands.get(cmd) || client.commands.find((a) => a.alisases && a.alisases.includes(cmd))
+    const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd))
     if (!command) return message.reply('Command not found')
 
-    //const validPermissions = [
-    //    "CREATE_INSTANT_INVITE",
-    //    "KICK_MEMBERS",
-    //    "BAN_MEMBERS",
-    //    "ADMINISTRATOR",
-    //    "MANAGE_CHANNELS",
-    //    "MANAGE_GUILD",
-    //    "ADD_REACTIONS",
-    //    "VIEW_AUDIT_LOG",
-    //    "PRIORITY_SPEAKER",
-    //    "STREAM",
-    //    "VIEW_CHANNEL",
-    //    "SEND_MESSAGES",
-    //    "SEND_TTS_MESSAGES",
-    //    "MANAGE_MESSAGES",
-    //    "EMBED_LINKS",
-    //    "ATTACH_FILES",
-    //    "READ_MESSAGE_HISTORY",
-    //    "MENTION_EVERYONE",
-    //    "USE_EXTERNAL_EMOJIS",
-    //    "VIEW_GUILD_INSIGHTS",
-    //    "CONNECT",
-    //    "SPEAK",
-    //    "MUTE_MEMBERS",
-    //    "DEAFEN_MEMBERS",
-    //    "MOVE_MEMBERS",
-    //    "USE_VAD",
-    //    "CHANGE_NICKNAME",
-    //    "MANAGE_NICKNAMES",
-    //    "MANAGE_ROLES",
-    //    "MANAGE_WEBHOOKS",
-    //    "MANAGE_EMOJIS"
-    //]
+    const validPermissions = [
+        'Permissions.FLAGS.CREATE_INSTANT_INVITE', 'Permissions.FLAGS.KICK_MEMBERS',
+        'Permissions.FLAGS.BAN_MEMBERS',           'Permissions.FLAGS.ADMINISTRATOR',
+        'Permissions.FLAGS.MANAGE_CHANNELS',       'Permissions.FLAGS.MANAGE_GUILD',
+        'Permissions.FLAGS.ADD_REACTIONS',         'Permissions.FLAGS.VIEW_AUDIT_LOG',
+        'Permissions.FLAGS.PRIORITY_SPEAKER',      'Permissions.FLAGS.STREAM',
+        'Permissions.FLAGS.VIEW_CHANNEL',          'Permissions.FLAGS.SEND_MESSAGES',
+        'Permissions.FLAGS.SEND_TTS_MESSAGES',     'Permissions.FLAGS.MANAGE_MESSAGES',
+        'Permissions.FLAGS.EMBED_LINKS',           'Permissions.FLAGS.ATTACH_FILES',
+        'Permissions.FLAGS.READ_MESSAGE_HISTORY',  'Permissions.FLAGS.MENTION_EVERYONE',
+        'Permissions.FLAGS.USE_EXTERNAL_EMOJIS',   'Permissions.FLAGS.VIEW_GUILD_INSIGHTS',
+        'Permissions.FLAGS.CONNECT',               'Permissions.FLAGS.SPEAK',
+        'Permissions.FLAGS.MUTE_MEMBERS',          'Permissions.FLAGS.DEAFEN_MEMBERS',
+        'Permissions.FLAGS.MOVE_MEMBERS',          'Permissions.FLAGS.USE_VAD',
+        'Permissions.FLAGS.CHANGE_NICKNAME',       'Permissions.FLAGS.MANAGE_NICKNAMES',
+        'Permissions.FLAGS.MANAGE_ROLES',          'Permissions.FLAGS.MANAGE_WEBHOOKS',
+        'Permissions.FLAGS.MANAGE_EMOJIS',         'Permissions.FLAGS.MODERATE_MEMBERS'
+      ]
+    
+      if(command.permissions.length){
+        let invalidPerms = []
+        for(const perm of command.permissions){
+          if(!validPermissions.includes(perm)){
+            return console.log(`Invalid Permissions ${perm}`);
+          }
+          if(!message.member.permissions.has([perm])){
+            invalidPerms.push(perm);
+          }
+        }
+        if (invalidPerms.length){
+          return message.channel.send(`Missing Permissions: \`${invalidPerms}\``);
+        }
+      }
 
-    //if(command.permissions.length){
-    //    let invalidperms = []
-    //    for(const perm of command.permissions){
-    //       if(!validPermissions.includes(perm)){
-    //            return console.log('Invalid Permission')
-    //        }
-    //        if(!message.member.permissions.has(perm)) {
-    //            invalidperms.push(perm)
-    //            break
-    //        }
-    //    }
-    //    if (invalidperms.length){
-    //        return message.reply(`Du darfst dieser Befehl nicht benutzen`)
-    //    }
-    //}
 
     message.channel.sendTyping()
     if(command) command.execute(client, message, cmd, args, Discord)

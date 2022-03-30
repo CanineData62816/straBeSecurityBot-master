@@ -5,8 +5,9 @@ const allIntents = new Discord.Intents(32767);
 module.exports = {
     name: 'unban',
     aliases: ['alias'],
-    permissions: ["EXAMPLE"],
+    permissions: ["Permissions.FLAGS.BAN_MEMBERS"],
     description: 'Unbans a user',
+    usage: 'unban [user]',
     async execute(client, message, cmd, args, Discord){
         try {
             let member = message.mentions.members.first() || await message.guild.members.search({query: args[0]});

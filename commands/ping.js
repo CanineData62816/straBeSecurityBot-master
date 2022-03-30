@@ -5,8 +5,9 @@ const client = new Discord.Client({ intents: [allIntents] });
 module.exports = {
     name: 'ping',
     aliases: ['pong', 'ping'],
-    permissions: ["SEND_MESSAGES"],
+    permissions: ["Permissions.FLAGS.SEND_MESSAGES"],
     description: 'Ping command',
+    usage: 'ping',
     execute(client, message, cmd, args, Discord){
         //Get the current ping of the bot
         const ping = Math.round(client.ws.ping);

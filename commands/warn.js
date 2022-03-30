@@ -6,8 +6,9 @@ const fs = require('fs')
 module.exports = {
     name: 'warn',
     aliases: [],
-    description: 'Warn command',
-    permissions: ["KICK_MEMBERS"],
+    description: 'A command that can add, remove or check warnings',
+    permissions: ["Permissions.FLAGS.MODERATE_MEMBERS"],
+    usage: 'warn <add/remove/check> <user> [reason]',
      execute(client, message, cmds, args, Discord){
         if(!args[0]) return message.reply('⚠️ Error: 404 ⚠️')
         if(!message.mentions.users.first()) return message.reply('⚠️ Error: 404 ⚠️')

@@ -6,8 +6,9 @@ const client = new Discord.Client({ intents: [allIntents] });
 module.exports = {
     name: 'timeout',
     aliases: ['alias'],
-    permissions: ["EXAMPLE"],
-    description: '',
+    permissions: ["Permissions.FLAGS.MODERATE_MEMBERS"],
+    description: 'Put a member in timeout',
+    usage: 'timeout [member] [time] <reason>',
     async execute(client, message, cmd, args, Discord){
         try{
             if(!args[1]) {return message.reply('Please provide a user and how long')}
