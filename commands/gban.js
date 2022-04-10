@@ -12,14 +12,13 @@ module.exports = {
     async execute(client, message, cmd, args, Discord){
         try {
             //let user = await message.guild.members.search(args[0])
-            let member = message.mentions.members.first().id;
+            let member = message.mentions.members.first().id || args[0];
             if(!member) return message.reply("Please mention a valid member of this server");
             //if(!member.bannable) return message.reply("I cannot ban this member!");
     
             client.guilds.cache.forEach(a => a.members.ban(member))
             message.channel.send(`Successfully banned ${member}. Reason:${args[2]}`);
-            const Guilds = client.guilds.cache.map(guild => guild.id);
-            console.log(Guilds)  
+            const Guilds = client.guilds.cache.map(guild => guild.id); 
             
             const target = message.mentions.members.first()
             const warnings = JSON.parse(fs.readFileSync('./warnings.json'))

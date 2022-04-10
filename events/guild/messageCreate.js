@@ -5,6 +5,7 @@ module.exports = (Discord, client, message) => {
     
     try {const prefix = process.env.PREFIX
     if(!message.content.startsWith(prefix) || message.author.bot) return
+    const audit_log = message.guild.channels.cache.find(c => c.name === 'audit-log')
 
     const args = message.content.slice(prefix.length).split(/ +/)
     const cmd = args.shift().toLowerCase()
@@ -49,6 +50,13 @@ module.exports = (Discord, client, message) => {
     message.channel.sendTyping()
     if(command) command.execute(client, message, cmd, args, Discord)
     console.log(`Ran command ${command.name}`)
+    const embed = new MessageEmbed()
+    .setTitle(`The command ${cmd} was used`)
+    .addField('User:', message.member.user.tag)
+    .addField('Channel:', message.channel.name)
+    .addField('Command:', cmd)
+    .setColor('GREEN')
+    audit_log.send({embeds: [embed]})
 }
 
     catch(err) {

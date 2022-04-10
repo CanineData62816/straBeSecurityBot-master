@@ -10,7 +10,6 @@ module.exports = {
         if (!args[0]) {
                 //create a function that gets all commands
                 //get all commands
-                //console.log(commands)
                 //make a loop that goes through all commands
                 //make a message embed
                 //add all commands to the embed

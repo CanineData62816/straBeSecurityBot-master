@@ -7,6 +7,7 @@ module.exports = {
     aliases: ['alias'],
     permissions: ["EXAMPLE"],
     description: '',
+    usage: '',
     async execute(client, message, cmd, args, Discord){
         
     }

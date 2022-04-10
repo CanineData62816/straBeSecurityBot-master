@@ -20,24 +20,40 @@ module.exports = {
             )
             //let user = await message.guild.members.search(args[0]) 
             let time = args[1]
+            let actualTime
+            if (time.endsWith('m')) {
+                let actualTime1 = time.slice(0, -1)
+                actualTime = actualTime1*1000*60
+            } else if (time.endsWith('s')) {
+                let actualTime1 = time.slice(0, -1)
+                actualTime = actualTime1*1000
+            } else if (time.endsWith('h')) {
+                let actualTime1 = time.slice(0, -1)
+                actualTime = actualTime1*1000*60*60
+            } else if (time.endsWith('d')) {
+                let actualTime1 = time.slice(0, -1)
+                actualTime = actualTime1*1000*60*60*24
+            } else {
+                return message.reply('Please provide a time in minutes, seconds, hours, or days')
+            }
             let member = message.mentions.members.first()
-            if(!member.moderatable){return message.reply('Unable to timeout user')}
-            member.timeout(args[1]*1000*60, 'They deserved it')
+            //if(!member.manageable) return message.reply('Unable to timeout user')
+            member.timeout(actualTime, reason.toString())
             const embed = new MessageEmbed()
             .setColor('DARK_RED')
             .setTitle('Timeout')
-            .setDescription(`${member.user.tag} was put in Timeout for ${time}min`)
+            .setDescription(`${member.user.tag} was put in Timeout for ${time}`)
             .setTimestamp()
-            .setFooter(message.author.tag)
+            .setFooter({text: message.author.tag})
             message.channel.send({embeds:[ embed ]})
-            if(!warnings[target.id]) warnings[target.id] = [];
+            /*if(!warnings[target.id]) warnings[target.id] = [];
             warnings[target.id].push({
                 'staff': message.author.id,
                 'reason': args[2],
                 'timestamp': new Date().toLocaleString(),
                 'type': 'timeout'
             });
-            fs.writeFileSync('./warnings.json', JSON.stringify(warnings, null, 4))
+            fs.writeFileSync('./warnings.json', JSON.stringify(warnings, null, 4))*/
         } catch(err) {
             console.warn(err)
             message.reply(`An error has occured, please don't try to rerun the command for multiple minutes.\nIf this issue persists please conatact a developer\nError: ${err}`)
