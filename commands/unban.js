@@ -10,11 +10,12 @@ module.exports = {
     usage: 'unban [user]',
     async execute(client, message, cmd, args, Discord){
         try {
-            let member = message.mentions.members.first() || await client.users.fetch(args[0]);
+            let member = args[0];  
             if(!member) return message.reply("Please mention a valid member of this server");
-            //if(!member.bannable) return message.reply("I cannot unban this member!");
 
-            member.unban();
+            let reason = args.slice(1).join(" ");
+            if(!reason) reason = "No reason provided";
+            message.guild.members.unban(member, reason);
             message.channel.send(`Successfully unbanned ${member}.`);
         } catch(err) {
             console.log(err);

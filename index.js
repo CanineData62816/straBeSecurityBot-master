@@ -32,51 +32,6 @@ client.slashCommands = new Discord.Collection();
     require(`./handlers/${handler}`)(client, Discord);
 });
 
-async function antiProfanity(message) {
-    let profanities = ['niger', 'fucker', 'trump', 'putin', 'niga']
-    if (message.author.bot) return;
-    //check every message for profanities from the list
-    for (let i = 0; i < profanities.length; i++) {
-        if (message.content.toLowerCase().includes(profanities[i])) {
-            message.delete();
-            const msg = await message.channel.send(`${message.author} sent a profanity!\nPlease refrain from using profanities!`);
-            setTimeout(function(){
-                msg.delete();
-            }, 5000);
-            return;
-        }
-    }
-}
-
-async function welcomeMessage(member) {
-    try{
-    member.send(`Welcome to the server!\nTo gain full access to the server do the following:
-    
-    \`\`\`1. Read the rules in #rules
-    2. Join the StraBe Department of Defense group on ROBLOX. You can run ;group for a link.
-    3. Run %verify in #checkpoint.\`\`\`
-    
-    `);
-    } catch(err) {
-        // console.log(err);
-    }
-}
-
-client.on('threadUpdate',(oldThread, newThread) => {
-    if (newThread.archived === true) {
-        return newThread.setArchived(false)
-    }
-});
-
-client.on('guildMemberAdd', member => {
-    welcomeMessage(member);
-});
-
-//make a function that checks every message for a swear word
-client.on('messageCreate', message => {
-    antiProfanity(message);
-});
-
 const slashCommandFiles = fs.readdirSync('./slashCommands').filter(file => file.endsWith('.js'));
 
 for(const file of slashCommandFiles) {
@@ -84,8 +39,26 @@ for(const file of slashCommandFiles) {
     client.slashCommands.set(command.name, command);
 }
 
-const guildId = '897467911709540353';
-const guild = client.guilds.cache.get(guildId);
+async function commandRegister(commandData) {
+    const guildId = '897467911709540353';
+    const guild = client.guilds.fetch(guildId);
+    guild.commands.create({
+        name: 'slowmode',
+        description: 'Sets the slowmode of a channel',
+        options: [
+            {
+                name: 'channel',
+                description: 'The channel to set the slowmode of',
+                type: 'channel'
+            },
+            {
+                name: 'time',
+                description: 'The time in seconds to set the slowmode to',
+                type: 'number'
+            }
+        ]
+    });
+}
 
 
 client.on('interactionCreate', async interaction => {

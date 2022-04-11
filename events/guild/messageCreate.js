@@ -57,6 +57,23 @@ module.exports = (Discord, client, message) => {
     .addField('Command:', cmd)
     .setColor('GREEN')
     audit_log.send({embeds: [embed]})
+
+    async function antiProfanity(message) {
+      let profanities = ['niger', 'fucker', 'trump', 'putin', 'niga']
+      if (message.author.bot) return;
+      //check every message for profanities from the list
+      for (let i = 0; i < profanities.length; i++) {
+          if (message.content.toLowerCase().includes(profanities[i])) {
+              message.delete();
+              const msg = await message.channel.send(`${message.author} sent a profanity!\nPlease refrain from using profanities!`);
+              setTimeout(function(){
+                  msg.delete();
+              }, 5000);
+              return;
+          }
+      }
+  }
+  antiProfanity(message);
 }
 
     catch(err) {
