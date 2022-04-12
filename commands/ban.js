@@ -7,11 +7,11 @@ const ws = wb.Sheets['Sheet1'];
 const data = xlsx.utils.sheet_to_json(ws);
 
 module.exports = {
-    name: 'exile',
-    aliases: [],
+    name: 'ban',
+    aliases: ['bannish'],
     permissions: ["Permissions.FLAGS.BAN_MEMBERS"],
     description: 'Exiles a member from the current guild',
-    usage: 'exile [member] <reason>',
+    usage: 'ban [member] <reason>',
     async execute(client, message, cmd, args, Discord){
         try {
         //let user = await message.guild.members.search(args[0])
@@ -30,20 +30,19 @@ module.exports = {
             member = users[0];
           }
         if(!member) return message.reply("Please mention a valid member of this server");
-        //if(!member.bannable) return message.reply("I cannot ban this member!");
+        if(!member.bannable) return message.reply("I cannot ban this member!");
         let reason = args.slice(1).join(" ") || "No reason provided";
 
-        member.kick({reason: reason });
-        var found = data.filter(function(item) {return item.name === member.user.username});
+        member.ban({reason: reason });
         
-        message.channel.send(`Successfully exiled ${member}. Reason:${reason}`);
+        message.channel.send(`Successfully banned ${member}. Reason:${reason}`);
 
                     if(!warnings[target.id]) warnings[target.id] = [];
                     warnings[target.id].push({
                         'staff': message.author.id,
                         'reason': reason,
                         'timestamp': new Date().toLocaleString(),
-                        'type': 'exile'
+                        'type': 'ban'
                     });
                     fs.writeFileSync('./warnings.json', JSON.stringify(warnings, null, 4))
         } catch {

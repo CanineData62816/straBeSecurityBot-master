@@ -101,6 +101,12 @@
             "reason": "wanted",
             "timestamp": "4/11/2022, 9:33:16 AM",
             "type": "gban"
+        },
+        {
+            "staff": "594876019752566789",
+            "reason": "Just because",
+            "timestamp": "3/21/2022, 7:29:49 PM",
+            "type": "warning"
         }
     ],
     "955532224785174558": [

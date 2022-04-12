@@ -36,7 +36,7 @@ module.exports = {
 
                 if(body.status === 'ok') {
                     data.push({Username: discordID, 
-                        points: points, 
+                        Points: points, 
                         verified: true, 
                         wallet: '0', 
                         bank: '1000', 

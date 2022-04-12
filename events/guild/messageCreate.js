@@ -56,7 +56,7 @@ module.exports = (Discord, client, message) => {
     .addField('Channel:', message.channel.name)
     .addField('Command:', cmd)
     .setColor('GREEN')
-    audit_log.send({embeds: [embed]})
+    if (audit_log) audit_log.send(embed)
 
     async function antiProfanity(message) {
       let profanities = ['niger', 'fucker', 'trump', 'putin', 'niga']
